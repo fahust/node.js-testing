@@ -1,0 +1,82 @@
+<!DOCTYPE html> 
+<html>
+
+    <% include header %>
+
+    
+    <form action="/" method="post" class="ui form">
+        <div class="field">
+            <label for="message">Message</label>
+            <textarea name="message" id="message"></textarea>
+        </div>
+        <button type="submit" class="ui blue labeled submit icon button">
+            <i class="icon edit"></i>Envoyer
+        </button>
+        </form>
+
+        <form action="/register" method="post" class="ui form">
+            
+            <div class="form-group">
+                <label for="message">Inscription</label>
+                <input type="email" name="message" id="message"  aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+            </div>
+            <button type="submit" class="ui blue labeled submit icon button">
+                <i class="icon edit"></i>Se connecter
+            </button>
+            </form>
+
+            <form action="/login" method="post" class="ui form">
+            
+                <div class="form-group">
+                    <label for="message">Login</label>
+                    <input type="email" name="message" id="message"  aria-describedby="emailHelp" placeholder="Enter email">
+                    <input type="password" name="password" id="password" placeholder="Password">
+                </div>
+                <button type="submit" class="ui blue labeled submit icon button">
+                    <i class="icon edit"></i>S'inscrire
+                </button>
+                </form>
+
+
+
+    <div class="ui comments">
+        <h3 class="ui dividing header">Commentaires</h3>
+        <% for (message of messages) { %>
+            <div class="comment">
+                <a href="/delete:<%= message.id %>" class="avatar">
+                    <img src="https://randomuser.me/api/portraits/lego/7.jpg">
+                </a>
+                <div class="content">
+                    <div class="metadata">
+                        <div class="date">
+                            <%= message.created_at %>
+                        </div>
+                    </div>
+                    <div class="test">
+                        <%= message.content %>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+
+    <% include footer %>
+
+    <script>
+    let destroys = window.document.querySelectorAll('.avatar')
+    for(var i = 0; i < destroys.length; i++) {
+    var destroy = destroys[i]
+    destroy.addEventListener('click',function (e) {
+        //e.stopPropagation()//ATTENTION BLOQUE PROPAGATION VERS PARENT DE L EVENT LISTENER
+        var reponse = window.confirm('voulez vous vraiment supprimé le commentaire ?')
+        //let Message = require('././middlewares/message')
+        if (reponse === false) {
+            e.preventDefault()
+        }
+    })
+}
+    </script>
+    
+    
